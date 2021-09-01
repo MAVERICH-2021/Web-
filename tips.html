@@ -6,19 +6,27 @@
 <link rel="stylesheet" href="css/style.css">
 <link href="http://fonts.googleapis.com/css?family=News+Cycle:400,700" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+	<style>
+		img {
+			width: 90%;
+			
+		}
+	</style>
 <script src="https://www.googletagservices.com/activeview/js/current/osd.js"></script>
 <script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.html5tricks.com"></script>
 </head>
 
-<body>
+<body> 
+	<audio src='audio/tip.wav' autoplay="false" id="sound" preload="auto"></audio>
 <aside class="accordion">
 <h1>整体构造</h1>
 <div class="opened-for-codepen">
 	<h2>减法合成器简介</h2>
 	<p>
-		根据传说，当人们问米开朗琪罗如何在一块石头上刻出大卫时，他回答：“我只是切掉所有看起来不像大卫的部分”。本质上，这就是减法合成的工作原理：过滤掉（剪切掉）不想要听到的声音部分。减法合成器是由三个部件组成的：振荡器、滤波器和放大器。沿用上面关于雕塑的比喻，振荡器负责制造雕塑用的石头（原料），而滤波器负责雕刻的部分，放大器则完成最后的润色。经过这三个阶段后，美妙的音色就被制造出来了。具体流程如下
+		根据传说，当人们问米开朗琪罗如何在一块石头上刻出大卫时，他回答：“我只是切掉所有看起来不像大卫的部分”。本质上，这就是减法合成的工作原理：过滤掉（剪切掉）不想要听到的声音部分。<br>
+		减法合成器是由三个部件组成的：振荡器、滤波器和放大器。沿用上面关于雕塑的比喻，振荡器负责制造雕塑用的石头（原料），而滤波器负责雕刻的部分，放大器则完成最后的润色。经过这三个阶段后，美妙的音色就被制造出来了。具体流程如下
  			<img src="img/1.png" width="100%">
-		而整个减法合成器又被分为几个主要的模块,接下来我们会根据信号的处理顺序逐个对各个模块做简介和详细介绍
+		而整个减法合成器又被分为几个主要的模块,接下来我们会根据信号的处理顺序逐个对各个模块做详细介绍
 
 	</p>
 
@@ -29,22 +37,26 @@
 	<h3>简介</h3>		
 		<p>这个模块是减法合成器音频信号的源头,在做减法之前首先要有被减数,那么这一块就是制造被减数的地方,我们可以认为这是在'先做加法',目的是让原材料足够的丰富,让后面的减法操作'有料可减'</p>
 	<h3>Oscillator Bank (振荡器库)</h3>
-	<p>内置三台振荡器,振荡器的作用就是发出声波,这是整台合成器的源头.在这里我们可以对三台合成器进行简单的调整,比如音高 波形等等<br>
+	<p>内置三台振荡器,振荡器的作用就是发出声波,这是整台合成器的源头.在这里我们可以对三台合成器进行简单的调整,比如这里的音高 波形<br>
 Range: 音高,升降一个单位就是一个八度<br>
 Detune:失谐,在八度的基础上再以Hz为单位调整波形的频率<br>
 Form:波形,选择不同的波形得到不同的音色,形状越"陡峭",高频越丰富(例如方波和锯齿波)<br>
 形状越柔和则反之(正弦波和三角波),高频的丰富程度就决定了音色的表现力<br>
+		下图为各个波形以及它的频率分布动态图[频率左低右高]
+		<img src="img/gif/waveform.gif">
 </p>
 
 	<h3>Mixer (混音台)</h3>
-	<p>Oscillator Bank中的振荡器并不是直接连接到音频的输出节点的,振荡器的信号先要通过混音台进行各个振荡器音量的平衡才能输出到下一个信号节点<br>
+	<p>Oscillator Bank中的振荡器并不是直接连接到音频的输出节点的,振荡器的信号先要通过混音台<b>进行各个振荡器音量的平衡</b>才能输出到下一个信号节点<br>
 On/Off:振荡器开关 红色代表振荡器处于关闭状态<br>
 Volume:音量,用来调整各个振荡器之间的音量平衡<br>
 </p>
 	<h3>Noise(噪音)</h3>
 	<p>上方的按钮是开关 下面的旋钮是音量 <br>
 brown pink white则代表噪音的音色特性<br>
-白噪声在各频率上相同的分布，一般热噪声都是典型的白噪声，电路中很容易出现，频谱是一条水平线，听起来就是沙沙的声音，。自然界背景噪声低频成分居多，因此粉红噪声可以更好的模拟环境噪声的影响，同时半导体电路里也很容易出现闪烁噪声，听起来比白噪声闷，有点像下雨的声音。“褐色噪声”的翻译有点问题，"Brown Noise"里的“Brown”含义是布朗运动，而不是“褐色”，布朗噪声低频成分更多，听起来更低沉，有点像海边的声音。
+		<q>
+白噪声在各频率上相同的分布，一般热噪声都是典型的白噪声，电路中很容易出现，频谱是一条水平线，听起来就是沙沙的声音，。自然界背景噪声低频成分居多，因此粉红噪声可以更好的模拟环境噪声的影响，同时半导体电路里也很容易出现闪烁噪声，听起来比白噪声闷，有点像下雨的声音。“褐色噪声”的翻译有点问题，"Brown Noise"里的“Brown”含义是布朗运动，而不是“褐色”，布朗噪声低频成分更多，听起来更低沉，有点像海边的声音。</q>
+		<img src="img/noise.png">
 </p>
 </div>
 	
@@ -59,59 +71,118 @@ brown pink white则代表噪音的音色特性<br>
 		Decay:衰减~小提琴演奏者开始收力并达到音量平稳的过程<br>
 		Sustain:保持~小提琴音量维持不变的过程<br>
 		Release:释放~小提琴演奏者收弓后小提琴语音渐消的过程
+			<img src="img/gif/ADSR.gif">
 		</p>
 			<h4>Primary(基本包络线)</h4>
 		<p>控制音色的音量动态.当我们敲击键盘上的按键,我们会经过按下按键-&gt;保持按下状态-&gt;放开按下状态,只要按键处于按下状态,就会以时间顺序依次经过起音 衰减 保持三个过程,当你释放按键,则会直接跳转到释放环节
+			<img src="img/gif/ADSR.gif">
 		</p>
 			<h4>Filter(滤波器包络线)</h4>
-		<p>和基本包络线是一致的,只是调制的参数从音量转成滤波器的截止频率
+		<p>和基本包络线是一致的,只是调制的参数从音量转成滤波器的截止频率<br>
+			<img src="img/gif/env_filter.gif">
+			<img src="img/gif/env_adsr.gif">
+			<img src="img/gif/eq_filter.gif">
 		</p>
 	</div>
 	<h3>LP Filter(低通滤波器)</h3>
 	<div>
 		<h4>什么是低通滤波器?</h4>
-		<p>LP Filter意为低通滤波器(Lowpass Filter),顾名思义,只有低频才能通过它,它的作用就类似于一扇门,将高频拒之门外,因此可以用来去除音色中刺耳的高频,使得音色更加人性化,同时,在更高级的合成器中,通过给滤波器的截止频率(Cutoff)挂载包络线或者LFO,可以让音色的高频时隐时现,增添音色的趣味性
+		<p>LP Filter意为低通滤波器(Lowpass Filter),顾名思义,只有低频才能通过它,它的作用就类似于一扇门,将高频拒之门外,因此可以用来去除音色中刺耳的高频,使得音色更加人性化,同时,在更高级的合成器中,通过给滤波器的截止频率(Cutoff)挂载包络线或者LFO,可以让音色的高频时隐时现,增添音色的趣味性<br>
+			<img src="img/gif/env_filter.gif">
+			<img src="img/gif/eq_filter.gif">
+			
 		</p>
 			<h4>参数意义</h4>
 		<p>Cutoff,中文意思截止频率,用于设置高频的截断门槛,在LP Filter中,高于截止频率的频段会被削弱<br>
+			<img src="img/gif/lp_filter.gif">
 			Emphasis,更常见的名称是Resonance(共鸣),用于在Cutoff的基础上强化截止频段的强度,提高这个参数,你可以听到高频处有一段特定的频段被强化,这个频段就是cutoff设置的频段,调整cutoff你可以感受到共鸣频段的移动
+			<img src="img/gif/lp_filter_resonance.gif">
 		</p>
 			<h4>活动任务</h4>
 		<p>
-			<input type="checkbox">按下键盘同时鼠标任意拖动Cutoff,感受高频的变化
-			<input type="checkbox">按下键盘的同时鼠标任意拖动Emphasis,感受截止频段的信号强度变化,然后再拖动cutoff,你可以感受到共鸣点的移动
+			<input type="checkbox" onClick="sound(this)">按下键盘同时鼠标任意拖动Cutoff,感受高频的变化<br>
+			<input type="checkbox" onClick="sound(this)">按下键盘的同时鼠标任意拖动Emphasis,感受截止频段的信号强度变化,然后再拖动cutoff,你可以感受到共鸣点的移动
 		</p>
 		<h4>知识扩展</h4>
-		<p>滤波器的类型非常多,不止有LP,还有HP(Hipass:去掉低频,高频通过),BP(Bandpass:只留中间,去掉高低频),并且各种类型的滤波器还有不同型号,有的数字滤波器会模仿现实中的模拟滤波器的特性</p>
+		<p>滤波器的类型非常多,不止有LP,还有HP(Hipass:去掉低频,高频通过),BP(Bandpass:只留中间,去掉高低频),并且各种类型的滤波器还有不同型号,有的数字滤波器会模仿现实中的模拟滤波器的特性<br>
+		<img src="img/gif/filter_expansion.gif">
+		</p>
+		
 	</div>
 	<h3>Modulation(调制器)</h3>
-	<p></p>
+	<p>
+		这里有两个参数,一个是选择调制的波形,选择好之后你还需要把下方<strong>钢琴键盘左侧第二条滚条</strong>拉高,你才能听到调制效果[这个效果主要是用来现场演奏]
+		另一个参数是Glide(滑音),将这个参数拉到最大,随意弹奏两个音符你就能感受到明显的音高滑动
+	</p>
 	<h3>LFO(低频振荡器)</h3>
-	<p></p>
+	<p>
+	我们知道,人类的听觉范围是20~20KHz,意思是如果一个空气例子振动次数为20~20000次,那么我们是可以感受到的,反之如果超出这个范围,人耳便无法感知<br>
+		而LFO所产生的振动正是我们无法感知的次频波[低于20Hz],通过这个非常慢速的振动,我们可以将LFO加载在音频信号的发送量上,实现动态的自动化调控<br>
+		同样这里也有可供选择的LFO波形,下面的Rate是震荡速度,Clean/LFO则是控制LFO控制量,提高控制量我们可以听到音色在音量上的颤动,显然这台合成器的LFO是挂载在输出音量上的
+	</p>
 		
 </div>
 	<h2>效果器模块</h2>
 	<div>
 		<h3>Compressor(压缩器)</h3>
 		<div>
-			<h4>什么是压缩器?</h4>
-				<p></p>
+			<h4>压缩器的作用</h4>
+				<p>
+			压缩器最原始的作用是在压缩音频的动态范围，也就是让小声的地方音量不要太弱，大声的不要太强，让整个音频都处在一个合理的音量范围，也就是说压缩器减小了音量的最高点和最低点的差距。<br>
+			注意观察下方动图中音频音量最大处和最小处的差距,这个过程就是不断增加压缩量的效果<br>
+					<img src="img/gif/compressor.gif">
+			减小了音频的音量动态会使得音频即使和未压缩之前一样音量大小,在听感上也会更加大声,正是利用人的听觉心理,压缩器适当的压缩可以让音乐更加悦耳<br>
+					同时也避免了音乐当中音量忽小忽大,比如一些不注意的作者视频的背景音乐就有可能损害人的耳朵
+			</p>
+			<h4>压缩器的工作原理</h4>
+			<p>
+				压缩器的原理总结起来就是'劫富济贫':超出一定限度的音量被打压,同时为了保持音频的音量不会损失,再提高整体的音量水平,从而实现'音量再分配',减小'贫富差距'<br>
+				如下图所示,我们先压缩,然后再拉高整体的音量,你可以看到音频的高峰和低峰变得更接近了
+				<img src="img/gif/compressor_principle.gif">
+			</p>
+			<h4>压缩器的参数解释</h4>
+			<p>
+				Threshold:阈值  超过阈值的信号受到压缩,低于阈值的信号保持不变<br>
+				Ratio:设定超出部分的信号量的压缩比,例如Ratio设置为10,则超出的信号量变为原来的十分之一[10:1压缩]<br>
+				Knee:拐点 拐点值越大,压缩越干脆,越小则越柔和
+				Attack:启动时间,当压缩器检测到音量超出时需要一定的时间来启动压缩工作
+				Release:当音量回到阈值以下,压缩器的压缩工作量还需要一定的时间来降低
+				Gain:因为压缩会让音量变小,因此需要Gain来拉高整个音频的音量,以补偿压缩掉的音量
+			</p>
 		</div>
-		<h3>Delay(延时)</h3>
-		<div>
-			<h4>什么是延时?</h4>
-				<p></p>
-		</div>
+		<h3>Delay(延时)</h3>		
+				<p>
+					模拟稀疏的回声效果,相比混响有明显的时间间隔,应用场景:山谷<br>
+					延时的处理核心在于将已经输出的信号再次返送到输入端,输出和输入之间存在时间间隔,从而模拟出回声的效果<br>
+					未处理:<br>
+					<img src="img/clap.png"> <br>
+					加入延时效果后:<br>
+					<img src="img/clap_delay.png"><br>
+					参数解释:<br>
+					Fime:延时持续时间<br>
+					Feed:信号返送量,注意不要设置过大,因为返送的信号会再一次输出,不断循环,设置太大的参数会引起音量越来越大<br>
+					Dry:干信号的信号量,也就是没有经过延时处理的信号量<br>
+					Wet:湿信号的信号量,也就是经过延时处理的信号量
+					
+						
+				</p>
+	
 		<h3>Reverb(混响)</h3>
-		<div>
-			<h4>什么是混响?</h4>
-				<p></p>
-		</div>
+		
+				<p>
+					模拟密集的回声效果,往往很难分辨出不同回声之间的间隔,应用场景:浴室,教堂<br>
+					这里只给出了一个level参数,只能调节混响的输出量<br>
+					未处理:<br>
+					<img src="img/clap.png"> <br>
+					加入混响效果后:<br>
+					<img src="img/clap_reverb.png"><br>
+				</p>
+		
 	</div>
 	<h2>键盘</h2>
 	<div>
 		<h3>钢琴键</h3>
-			<p>英文名Keyboard 钢琴键的结构是...</p>
+			<p>英文名Keyboard 十二个黑白相间的按键模式构成一个八度</p>
 		<h3>音高滑轮</h3>
 			<p>英文名Pitch Bend: 在演奏的同时滑动它可以实时的调整音高,在键盘演奏的现场演奏者常常会使用Pitch Bend来增加动感</p>
 		<h3>调制滑轮</h3>
@@ -163,41 +234,60 @@ brown pink white则代表噪音的音色特性<br>
 				<p>为了能够完整体验减法合成器从最简单粗糙的声波一步步演变成复杂的理想波形,我们需要对现有的预制做初始化处理,避免各个模块对振荡器的影响,因此我们需要先去除各个模块的作用,你只需要跟随下列指示,最好在操作的同时思考为什么要这样做,以加强你对各个参数的理解</p>
 			<h4>操作指南</h4>
 				<p>
-				  <input type="checkbox">把Polyphony的Voices设置为1  //刚开始我们只需要用单音来测试音色<br>
-				  <input type="checkbox">Modulation的Glide参数设为0  //在音色轮廓出来之前,滑音会影响我们的判断<br>
-				  <input type="checkbox">Mixer中的开关全部点灭(变红色) //之后我们会挨个启用,实现最开始的加法<br>
-				  <input type="checkbox">Noise1的开关也关闭 //暂时不需要加入噪音<br>
-				  <input type="checkbox">Envolope两个包络都将Attack Decay Release设置为0,将Sustain设置为100 //这样当我们按下按键所发出的音色就是毫无动态的最原始的音色<br>
-				  <input type="checkbox">LP Filter中的Cutoff设为最大 Emphasis设为0 Simple/Env设为0 // 这样滤波器就不会过滤高频<br>
-				  <input type="checkbox">LFO中的Rate 和 Clean/LFO都设置为0 //LFO的调制量为零<br>
-				  <input type="checkbox">Compressor的开关关闭<br>
-				  <input type="checkbox">Delay的wet调为零<br>
-				  <input type="checkbox">Reverb的level调为零<br>
+				  <input type="checkbox" onClick="sound(this)">把Polyphony的Voices设置为1  //刚开始我们只需要用单音来测试音色<br>
+				  <input type="checkbox" onClick="sound(this)">Modulation的Glide参数设为0  //在音色轮廓出来之前,滑音会影响我们的判断<br>
+				  <input type="checkbox" onClick="sound(this)">Mixer中的开关全部点灭(变红色) //之后我们会挨个启用,实现最开始的加法<br>
+				  <input type="checkbox" onClick="sound(this)">Noise1的开关也关闭 //暂时不需要加入噪音<br>
+				  <input type="checkbox" onClick="sound(this)">Envolope两个包络都将Attack Decay Release设置为0,将Sustain设置为100 //这样当我们按下按键所发出的音色就是毫无动态的最原始的音色<br>
+				  <input type="checkbox" onClick="sound(this)">LP Filter中的Cutoff设为最大 Emphasis设为0 Simple/Env设为0 // 这样滤波器就不会过滤高频<br>
+				  <input type="checkbox" onClick="sound(this)">LFO中的Rate 和 Clean/LFO都设置为0 //LFO的调制量为零<br>
+				  <input type="checkbox" onClick="sound(this)">Compressor的开关关闭<br>
+				  <input type="checkbox" onClick="sound(this)">Delay的wet调为零<br>
+				  <input type="checkbox" onClick="sound(this)">Reverb的level调为零<br>
 				</p>
 		</div>
 		<h3>启动振荡器</h3>
-			<p><input type="checkbox">开启一号振荡器
+			<p><input type="checkbox" onClick="sound(this)">开启一号振荡器
 			选择你想要的波形和音高(注:刚开始音色听起来会很刺耳和干燥,没关系,后面的调制会让它更人性化,因此像方波这样非常刺耳的波形也推荐你去尝试)<br>
-			 <input type="checkbox"> 开启二号振荡器,叠加音色(可选)
+			 <input type="checkbox" onClick="sound(this)"> 开启二号振荡器,叠加音色(可选)
 			同样和一号一样,根据主观感受选择,你可以选择和一号一致的波形,但是切记不要将二者的音高设为一样,因为这样就只是提高一号振荡器的音量而已
 			如果你选择的是和一号相同的波形,可以尝试只调节Detune(微微调节),你可以听到音色会变得浑厚起来  你还可以升降八度,来让音色的频谱更宽
 			对于第三个振荡器,你可以开启也可以不开启</p>
-  
+  			
+		<h3>调整Primary Envelope</h3>
+			<p>
+				<input type="checkbox" onClick="sound(this)">这个步骤完全看个人的喜好,如果你想要柔和的音色就将Attack拉高,明亮干脆就把Attack调低,想要音色短促就调低decay sustain release,想要余音就提高release,一切都看你自己的想法<br>
+				至于为什么先调整音量包络而不是滤波器,这是因为音量包络线是整个音色听感的第一要素,先设置好包络线才不至于因为滤波器的作用扰乱了对音色的判断
+			</p>
 		<h3>调整LP Filter</h3>
-			<p></p>
+			<p>
+				<input type="checkbox" onClick="sound(this)">将Cutoff参数调节到适当的位置,声音不刺耳又不会过于沉闷,当然这取决于你想要合成的音色类别,例如Bass音色就可以大胆地切掉高频,想要做明亮的Bell音色就尽可能保留高频<br>
+				<input type="checkbox" onClick="sound(this)">为了补偿被切掉的高频,可以适当增加Emphasis<br>
+				<input type="checkbox" onClick="sound(this)">如果你想要让LP Filter连通包络线来增加动态,那就要把Simple/Env参数拉高,如果你做了这一步,那就需要进一步调节Filter Env了,设置过程也是随自己的感觉就好
+					
+		</p>
  
-		<h3>调整Envelope</h3>
-			<p></p>
+	
 		<h3>适当加入Glide</h3>
-			<p></p>
+			<p>
+			<input type="checkbox" onClick="sound(this)">Glide的加入可以给音色增添许多色彩,同样也随君所好
+		</p>
 		<h3>加入Noise</h3>
-			<p></p>
+			<p><input type="checkbox" onClick="sound(this)">Noise的加入可以为音色增加颗粒感,如果你想要干净质地的音色那就不需要加入,Noise也同样会受到Filter的过滤</p>
 		<h3>LFO增加动感</h3>
-			<p></p>
+			<p><input type="checkbox" onClick="sound(this)">音量的颤动是非常实用的音色设计技巧,可以为音色增加迷幻感和动感,听感主要受到LFO的速度影响,你可以先将LFO的调制量拉到最大,然后调整速度和波形,这样做可以清晰的感受到动态的变化,得到想要的效果之后再降低调制量</p>
 		<h3>启动Delay和Reverb</h3>
-			<p></p>
+			<p>
+		<input type="checkbox" onClick="sound(this)">如果合成器的效果器处理顺序是固定的,那么Delay一般位于Reverb的前面,因为如果Reverb的信号进入到Delay那就会变得非常浑浊,因此我们先调整Delay,获得想要的Delay
+				效果之后再去用Reverb润色,调节的过程没有特殊的要求<br>
+				<input type="checkbox" onClick="sound(this)">调整混响输出量
+		</p>
 		<h3>启动Compressor</h3>
-			<p></p>
+			<p>
+			<input type="checkbox" onClick="sound(this)">先把Ratio调到3~5,再将阈值调节到一个较低的位置,直到人耳可以清晰分辨出压缩前后的差别,之后,我们再进一步调整Ratio和阈值直到感到合适.整个调整过程你可以多多利用开关来快速对比压缩与不压缩的差别<br>
+			<input type="checkbox" onClick="sound(this)">提高Gain来补偿被压缩的信号,同样要多利用开关来对比<br>
+			<input type="checkbox" onClick="sound(this)">Attack和Release尽量做到和音色的整个动态相配合,和谐即可
+		</p>
 	</div>
 	<h2>后记</h2>
 		<p>虽然说减法合成器采用的是一个先加法,再减法的合成过程,但是在实际的运用中,我们不会非常死板地从头到尾调制,我们可以先调整Envelope获得想要的动态效果,再反过来调整振荡器,只要能更加接近理想中的音色,任何操作都是合理的,合成音色没有规则和限制,不断的实验才造就了现代丰富的电子音色</p>
@@ -206,6 +296,17 @@ brown pink white则代表噪音的音色特性<br>
 </aside>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/index.js"></script>
+	<script>
+		function sound(checkbox){
+			if(checkbox.checked== true ){
+				var a = document.getElementById("sound");
+				a.currentTime=0;  //重头开始
+				a.play();
+			}else{
+				
+			}
+		}
+	</script>
 </body>
 
 </html>
