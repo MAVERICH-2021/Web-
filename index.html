@@ -5,7 +5,7 @@
 <title>减法合成器基础教学</title>
 <style>
 	body{
-		background-color: #000000;
+		background-color: #27363C;
 	}
 	#synth{
 		width: 77%;
@@ -13,6 +13,7 @@
 		position: absolute;
 		top: 0;
 		height: 100%;
+		border: none;
 	}
 	#tips{
 		width: 23%;
@@ -20,13 +21,30 @@
 		top: 0;
 		position: absolute;
 		height: 100%;
-		background-color: #000000;	
+		background-color: #transparent;
+		border: none;
+	}
+	#tip{
+		position:absolute;
+		right: 1%;
+		bottom: 0;
+		
+		height: 16%;
+		color: aliceblue;
 	}
 </style>
 </head>
 
 <body>
+	<!--<iframe src="img/shot/Init.png" hidden="no" id="image" width="100%" height="100%"></iframe>-->
 	<iframe id="synth" src="http://nicroto.github.io/viktor/"></iframe>
-	<iframe id="tips" src="tips.html" scrolling="no"></iframe>
+		<div id="tip">
+		<h3>使用提示</h3>
+		<p>使用电脑键盘也可以弹奏出声音,想要浏览当前音色不需要<br>用鼠标点击钢琴键,直接使用键盘演奏即可<br>
+		Q2W3ER5T6Y7U对应一个八度,<br>ZSXDCVGBHNJM对应低八度</p>
+	</div>
+	<iframe id="tips" src="tips.html" scrolling="yes"</iframe>
+	
+
 </body>
 </html>
